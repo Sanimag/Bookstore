@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<title></title>
+	</head>
+	<body>
+		{% if book_id %}
+			{% for book in book_id %}
+			<p><a href="{% url 'books' book.id %}">{{book}}</a></p>
+			{% endfor %}
+		{% else %}
+			<p>It doesn't exist</p>
+		{% endif %} 
+	</body>
+</html>
