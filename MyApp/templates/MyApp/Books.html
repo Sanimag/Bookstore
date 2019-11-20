@@ -1,0 +1,13 @@
+{% extends 'MyApp/layout.html' %}
+
+{% block content %}
+	{% if book %}
+		{% for b in book %}
+		<p><a href="{% url 'books' b.id %}">{{b}}</a></p>
+		<p>{{b.text|truncatewords:10}}</p>
+		{% endfor %}
+	{% else %}
+	<p>Error</p>
+		{% endif %}
+	}
+{% endblock %}

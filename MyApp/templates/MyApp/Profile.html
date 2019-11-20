@@ -1,0 +1,198 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Profile</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	
+	
+	<!-- Font -->
+	
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700%7CAllura" rel="stylesheet">
+	
+	<!-- Stylesheets -->
+	{% load static %}
+	<link href="{% static 'MyApp/bootstrap.css' %}" rel="stylesheet">
+	
+	<link href="{% static 'MyApp/ionicons.css' %}" rel="stylesheet">
+	
+	<link href="{% static 'MyApp/fluidbox.min.css' %}" rel="stylesheet">
+	
+	<link href="{% static 'MyApp/styles.css' %}" rel="stylesheet">
+	
+	<link href="{% static 'MyApp/responsive.css' %}" rel="stylesheet">
+	
+</head>
+<body>
+	
+	<header>
+		
+	</header>
+	
+	<section class="intro-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-1 col-lg-2"></div>
+				<div class="col-md-10 col-lg-8">
+					<div class="intro">
+						{% if user %}
+					<div class="profile-img"><img src="{{user.userImg.url}}" alt="" width="200" height="200" alt=""></div>
+					     {% else %}
+					     <p>Justtttt</p>
+					     {%endif%}
+						<h2><b>{{user.username}}</b></h2>
+						<ul class="information margin-tb-30">
+							<li><b>Age : </b>{{user.age}}</li>
+							<li><b>EMAIL : </b>{{user.email}}</li>
+							<li><b>Gender : </b>{{user.gender}}</li>
+						</ul>
+					</div><!-- intro -->
+				</div><!-- col-sm-8 -->
+			</div><!-- row -->
+		</div><!-- container -->
+	</section><!-- intro-section -->
+	
+	<section class="portfolio-section section">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="heading">
+						<h3><b>My books(in developing)</b></h3>
+					</div>
+					{% if books %}
+  							<br>
+   						 {% for book in books %}
+   						    {% if book.reader != user.username %}
+     						 <ol>
+       						 <li value="{{forloop.counter}}">
+         					 <a href="{% url 'books' book.id %}"><p>{{book.name}}</p></a>
+       						 <a href="{% url 'books' book.id %}"><p>{{book.text|truncatewords:10}}</p></a>
+       						 <img src='{{book.book_img.url}}'>
+        						</li>
+      							</ol>
+      					    {% else %}
+      					  <p>NO</p>
+      					  <p>{{book.reader}}</p>
+      					  <p>{{user.username}}</p>
+      					  {% endif %}
+      					 {%endfor%}
+    					{% else %}
+     					 {{empty}}
+   						 {% endif %}
+				</div><!-- col-sm-4 -->
+				<div class="col-sm-8">
+					<div class="portfolioFilter clearfix margin-b-80">
+						<a href="{% url 'home' %}" data-filter="*" class="current"><b>Home page</b></a>
+						<a href="{% url 'search' %}" data-filter=".web-design"><b>Search</b></a>
+					</div><!-- portfolioFilter -->
+				</div><!-- col-sm-8 -->
+			</div><!-- row -->
+		</div><!-- container -->
+		
+		<!--<div class="portfolioContainer">
+			
+			<div class="p-item web-design">
+				<a href="images/portfolio-1-600x400.jpg" data-fluidbox>
+					<img src="images/portfolio-1-600x400.jpg" alt=""></a>
+			</div>
+			
+			<div class="p-item branding graphic-design">
+				<a href="images/portfolio-7-600x800.jpg" data-fluidbox>
+					<img src="images/portfolio-7-600x800.jpg" alt=""></a>
+			</div>
+			
+			<div class="p-item web-design">
+				<a href="images/portfolio-2-600x400.jpg" data-fluidbox>
+					<img src="images/portfolio-2-600x400.jpg" alt=""></a>
+			</div>
+			
+			<div class="p-item p-item-2 graphic-design">
+				<a class="img" href="images/portfolio-8-300x400.jpg" data-fluidbox>
+					<img src="images/portfolio-8-300x400.jpg" alt=""></a>
+				<a class="img" href="images/portfolio-9-300x400.jpg" data-fluidbox>
+					<img src="images/portfolio-9-300x400.jpg" alt=""></a>
+			</div>
+			
+			<div class="p-item branding graphic-design">
+				<a href="images/portfolio-3-600x400.jpg" data-fluidbox>
+					<img src="images/portfolio-3-600x400.jpg" alt=""></a>
+			</div>
+			
+			<div class="p-item graphic-design web-design">
+				<a href="images/portfolio-4-600x400.jpg" data-fluidbox>
+					<img src="images/portfolio-4-600x400.jpg" alt=""></a>
+			</div>
+			
+			<div class="p-item  graphic-design branding">
+				<a href="images/portfolio-5-600x800.jpg" data-fluidbox>
+					<img src="images/portfolio-5-600x800.jpg" alt=""></a>
+			</div>
+				
+			<div class="p-item web-design branding">
+				<a href="images/portfolio-6-600x800.jpg" data-fluidbox>
+					<img src="images/portfolio-6-600x800.jpg" alt=""></a>
+			</div>
+
+			<div class="p-item p-item-2 graphic-design">
+				<a class="img" href="images/portfolio-10-300x400.jpg" data-fluidbox>
+					<img src="images/portfolio-10-300x400.jpg" alt=""></a>
+				<a class="img" href="images/portfolio-11-300x400.jpg" data-fluidbox>
+					<img src="images/portfolio-11-300x400.jpg" alt=""></a>
+			</div>
+		
+		</div><!- portfolioContainer ->-->
+		
+	</section><!-- portfolio-section -->
+	
+	
+	<section class="about-section section">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="heading">
+						<h3><b>About me</b></h3>
+					</div>
+				</div><!-- col-sm-4 -->
+				<div class="col-sm-8">
+					<p class="margin-b-50">{{user.info}}</p>
+					
+					
+				</div><!-- col-sm-8 -->
+			</div><!-- row -->
+		</div><!-- container -->
+	</section><!-- about-section -->
+
+	
+	
+	<footer>
+		<p class="copyright">
+			<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ion-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+		</p>
+
+
+	</footer>
+	
+	
+	<!-- SCIPTS -->
+	
+	<script src="common-js/jquery-3.2.1.min.js"></script>
+	
+	<script src="common-js/tether.min.js"></script>
+	
+	<script src="common-js/bootstrap.js"></script>
+	
+	<script src="common-js/isotope.pkgd.min.js"></script>
+	
+	<script src="common-js/jquery.waypoints.min.js"></script>
+	
+	<script src="common-js/progressbar.min.js"></script>
+	
+	<script src="common-js/jquery.fluidbox.min.js"></script>
+	
+	<script src="common-js/scripts.js"></script>
+	
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends "MyApp/layout.html"%}
+{% block content %}
+ {% if result %}
+  <br>
+    {% for book in result %}
+      <ol>
+        <li value="{{forloop.counter}}">
+          <a href="{% url 'books' book.id %}">
+          <p>{{book.name}}</p>
+        </a>
+        {{book.text|truncatewords:10}}
+        </li>
+      </ol>
+      {%endfor%}
+    {% else %}
+      {{empty}}
+    {% endif %}
+{% endblock %}
